@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <header class="mb-4">
+            <h1 class="display-4">{{ _('Habit Tracker') }}</h1>
+            {% if session.get('user_id') %}
+            {% else %}
+                <p>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm">{{ _('Login') }}</a> |
+                    <a href="{{ url_for('register') }}" class="btn btn-success btn-sm">{{ _('Register') }}</a>
+                </p>
+            {% endif %}
+        </header>
+
+        {% if session.get('user_id') %}
+        <h2 class="mb-4">{{ _('Your Habits') }}</h2>
+        <div class="mb-3">
+            <a href="{{ url_for('index', order='asc') }}" class="btn btn-primary btn-sm">{{ _('Sort by Frequency (Ascending)') }}</a>
+            <a href="{{ url_for('index', order='desc') }}" class="btn btn-secondary btn-sm">{{ _('Sort by Frequency (Descending)') }}</a>
+        </div>
+        <ul class="list-group">
+            {% for habit in habits %}
+                <li class="list-group-item d-flex justify-content-between align-items-center" id="habit-{{ habit.id }}">
+                    <div>
+                        <h5>{{ habit.name }}</h5>
+                        <small>{{ _('Frequency') }}: {{ habit.frequency }}</small>
+                    </div>
+                    <div>
+                        <!-- Edit Button -->
+                        <a href="{{ url_for('edit_habit', habit_id=habit.id) }}" class="btn btn-warning btn-sm mx-1">{{ _('Edit') }}</a>
+
+                        <!-- Delete Button -->
+                        <button type="button" class="btn btn-danger btn-sm delete-habit" data-habit-id="{{ habit.id }}"
+                                onclick="confirmDelete(event)">{{ _('Delete') }}</button>
+
+
+                        <!-- Mark as Done Button -->
+                        <form action="{{ url_for('mark_completed', habit_id=habit.id) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm">{{ _('Mark as Done') }}</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+{% endblock %}
+

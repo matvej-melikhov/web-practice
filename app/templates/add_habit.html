@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mb-4">{{ _('Add a New Habit') }}</h1>
+        <form method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">{{ _('Habit Name') }}:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="frequency" class="form-label">{{ _('Frequency') }}:</label>
+                <select name="frequency" class="form-select" required>
+                    <option value="daily">{{ _('Daily') }}</option>
+                    <option value="weekly">{{ _('Weekly') }}</option>
+                    <option value="monthly">{{ _('Monthly') }}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ _('Add Habit') }}</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">{{ _('Back to habits') }}</a>
+    </div>
+{% endblock %}

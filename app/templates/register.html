@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">{{ _('Register') }}</h2>
+        <form method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">{{ _('Username') }}:</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">{{ _('Password') }}:</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">{{ _('Confirm Password') }}:</label>
+                <input type="password" name="password2" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">{{ _('Register') }}</button>
+        </form>
+    </div>
+{% endblock %}
